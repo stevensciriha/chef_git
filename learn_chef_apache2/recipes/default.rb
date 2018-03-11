@@ -3,13 +3,22 @@
 # Recipe:: default
 #
 # Copyright (c) 2016 The Authors, All Rights Reserved.
+bash 'update_sudoers' do
+  cwd '/etc'
+  code <<-EOH
+sed -i 's/Defaults    requiretty/#Defaults    requiretty/g' sudoers    
+EOH
+  only_if { ::File.exist?("/etc/sudoers") }
+end
+
+
 execute 'yum_update_upgrade' do
 command 'sudo yum update && sudo yum upgrade'
 end
 
-package 'apache2'
+package 'httpd'
 
-service 'apache2' do
+service 'httpd' do
   supports status: true
   action [:enable, :start]
 end
