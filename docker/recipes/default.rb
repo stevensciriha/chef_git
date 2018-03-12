@@ -27,6 +27,7 @@
 #  source 'index.html.erb'
 #end
 
+#docker_image 'stevensciriha/ubuntucustom2'
 docker_service 'default' do
   action [:create, :start]
 end
@@ -37,4 +38,3 @@ docker_container 'stevecontainer' do
   port '880:80'
   host_name 'steve'
 end
-
